@@ -5,16 +5,28 @@ using UnityEngine.InputSystem;
 
 public class Chest : MonoBehaviour
 {
+
+
+    //Stats
+    [SerializeField] private Item[] content;
+
+    //Renderers
     [SerializeField] private SpriteRenderer[] graphism;
     [SerializeField] private Sprite[] openSprite;
-    [SerializeField] private Sprite[] closeSprite;
+    [SerializeField] private Sprite[] closedSprite;
 
-    private GameManager manager;
-    private InputAction interactAction;
-
+    //Checkers
     private bool isReach = false;
 
+    //Refs
+    private GameManager manager;
+
+    //Inputs
+    private InputAction interactAction;
+
+
     private void Start()
+
     {
         manager = GameManager.GetInstance();
         interactAction = manager.GetInputs().actions.FindAction("Interact");
@@ -36,6 +48,11 @@ public class Chest : MonoBehaviour
 
     private void Open()
     {
+        
+        
+
+        EmptyChest();
+
         for (int i = 0; i < graphism.Length; i++) 
         {
             graphism[i].sprite = openSprite[i];
@@ -44,9 +61,19 @@ public class Chest : MonoBehaviour
 
     private void Close()
     {
+        
         for (int i = 0; i < graphism.Length; i++) 
         {
-            graphism[i].sprite = closeSprite[i];
+            graphism[i].sprite = closedSprite[i];
+        }
+    }
+
+    private void EmptyChest()
+    {
+        foreach (var _item in content)
+        {
+            CharactersInfo.AddItem(_item._id, _item.number);
+            _item.number = 0;
         }
     }
 
@@ -65,4 +92,5 @@ public class Chest : MonoBehaviour
             isReach = false;
         }
     }
+
 }
