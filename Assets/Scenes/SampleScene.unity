@@ -5958,6 +5958,7 @@ GameObject:
   - component: {fileID: 56033685}
   - component: {fileID: 56033683}
   - component: {fileID: 56033684}
+  - component: {fileID: 56033686}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6023,6 +6024,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &56033686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56033682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc12667537d0f57408c269499a351349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &82926877
 GameObject:
   m_ObjectHideFlags: 0
@@ -13388,7 +13404,7 @@ MonoBehaviour:
   content:
   - name: Money
     _id: 0
-    number: 0
+    number: 5
   graphism:
   - {fileID: 1109503100}
   openSprite:
@@ -13542,7 +13558,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b8cc9ce78eec2478c0622c070987df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: []
+  content:
+  - name: Money
+    _id: 0
+    number: 10
   graphism:
   - {fileID: 2043841477}
   - {fileID: 1545996153}

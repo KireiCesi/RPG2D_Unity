@@ -5,9 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CharacterMotor : MonoBehaviour
 {
-    private PlayerInput inputs;
-
-    private InputAction moveAction;
+    private InputsManager inputs;
 
     private Animator anim;
 
@@ -23,16 +21,15 @@ public class CharacterMotor : MonoBehaviour
     void Start()
     {
         manager = GameManager.GetInstance();
-        inputs = manager.GetInputs();
+        inputs = InputsManager.instance;
         anim = GetComponent<Animator>();
 
-        moveAction = inputs.actions.FindAction("Move");
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        Vector2 _moveValue = moveAction.ReadValue<Vector2>();
+        Vector2 _moveValue = inputs.GetMovingInputs().normalized;
         _moveValue = ChooseDirection(_moveValue);
 
         velocity = _moveValue * speed;
@@ -48,15 +45,9 @@ public class CharacterMotor : MonoBehaviour
 
     private Vector2 ChooseDirection(Vector2 _value)
     {
-        Vector2 _result = Vector2.zero;
-        if (Mathf.Abs(_value.x) >= Mathf.Abs(_value.y))//Se deplace en x
-        {
-            _result = new Vector2(_value.x, 0);
-        }
-        else 
-        { 
-            _result = new Vector2(0, _value.y);        
-        }
+        Vector2 _result = Mathf.Abs(_value.x) >= Mathf.Abs(_value.y) ? new Vector2(_value.x, 0) : new Vector2(0, _value.y);
+
+
        direction =  SetDirection(_result);
         return _result;
     }

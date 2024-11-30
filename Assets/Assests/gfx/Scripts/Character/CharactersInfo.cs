@@ -78,15 +78,9 @@ public class CharactersInfo : MonoBehaviour
         //ReAffiche les coeurs
         for (int i = 0; i < maxHealth; i++)
         {
-            if (i > health)
-            {
-                heartObj[i].SetActive(true);
-            }
-            else
-            {
-                heartObj[i].SetActive(false);
-            }
-            
+            bool _state = i > health ? true : false;  
+
+            heartObj[i].SetActive(_state);
         }
     }
 

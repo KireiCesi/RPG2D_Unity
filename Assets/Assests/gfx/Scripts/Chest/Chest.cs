@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,56 +18,43 @@ public class Chest : MonoBehaviour
 
     //Checkers
     private bool isReach = false;
+    private bool open = false;
 
     //Refs
     private GameManager manager;
-
-    //Inputs
-    private InputAction interactAction;
 
 
     private void Start()
 
     {
         manager = GameManager.GetInstance();
-        interactAction = manager.GetInputs().actions.FindAction("Interact");
+        InputsManager.instance.interactionEvent.AddListener(Interact);
     }
 
-    private void Update()
+    public void Interact()
     {
-        float _interact = interactAction.ReadValue<float>();
-
-        if (isReach && _interact > 0)
+        if (isReach)
         {
-            Open();
+            ChangeState(true, openSprite);
         }
-        else if (!isReach)
+        else
         {
-            Close();
+            ChangeState(false, closedSprite);
         }
     }
 
-    private void Open()
+
+    private void ChangeState(bool _state, Sprite[] _sprites)
     {
-        
-        
+       open = _state;
+       if(open) EmptyChest();
 
-        EmptyChest();
-
-        for (int i = 0; i < graphism.Length; i++) 
+        for (int i = 0; i < graphism.Length; i++)
         {
-            graphism[i].sprite = openSprite[i];
+            graphism[i].sprite = _sprites[i];
         }
     }
 
-    private void Close()
-    {
-        
-        for (int i = 0; i < graphism.Length; i++) 
-        {
-            graphism[i].sprite = closedSprite[i];
-        }
-    }
 
     private void EmptyChest()
     {
